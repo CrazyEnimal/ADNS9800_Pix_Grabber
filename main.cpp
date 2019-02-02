@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Mouse_Form mf( QString(argv[0]) + ".conf" );
+    Mouse_Form mf( QString(argv[0]) + ".ini" );
     mf.show();
     return a.exec();
 

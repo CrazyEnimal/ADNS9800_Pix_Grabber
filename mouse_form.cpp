@@ -26,11 +26,14 @@ Mouse_Form::Mouse_Form(QString sett_name, QWidget *parent)
     connect( &play_timer, &QTimer::timeout, this, &Mouse_Form::play_timeout );
 
     ui->rate->setValue( settings.value("framerate", 40).toInt() );
+    ui->speed->setText( settings.value("baudrate", "250000").toString() );
 }
 //=======================================================================================
 Mouse_Form::~Mouse_Form()
 {
-    settings.setValue( "framerate", ui->rate->value() );
+    settings.setValue( "framerate", ui->rate->value()        );
+    settings.setValue( "last-port", ui->ports->currentText() );
+    settings.setValue( "baudrate",  ui->speed->text()        );
     delete ui;
 }
 //=======================================================================================
@@ -110,6 +113,8 @@ void Mouse_Form::fill_ports()
 
     if ( !def_port.isNull() )
         ui->ports->setCurrentText( def_port.portName() );
+    else
+        ui->ports->setCurrentText( settings.value("last-port", "").toString() );
 }
 //=======================================================================================
 void Mouse_Form::on_open_clicked()
